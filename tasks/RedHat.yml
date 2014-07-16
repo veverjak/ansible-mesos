@@ -1,0 +1,26 @@
+---
+- name: Install os packages
+  yum: pkg={{item}} state=present
+  with_items:
+    - wget
+    - curl
+    - gcc-c++
+    - gcc
+    - python-setuptools
+    - python-devel
+    - openssl-devel
+    - cyrus-sasl-lib
+    - cyrus-sasl-devel
+    - unzip
+    - python-pip
+    - coreutils
+#    - libcurl3
+
+- command: pip install protobuf
+
+- name: Install Mesos RedHat Package
+  yum: name={{mesos_dest_file}} state=present
+
+- name: Mesos default config file
+  template: src=mesos.j2 dest=/etc/default/mesos
+

@@ -6,3 +6,9 @@
 
 - name: Download mesos v{{mesos_version}} python bindings (egg file)
   get_url: url={{mesos_python_download_url}} dest={{mesos_python_dest_file}}
+
+- user: name={{mesos_system_user}}
+
+# Create dirs
+- file: path={{mesos_log_location}} state=directory mode=0750 owner={{mesos_system_user}}
+- file: path={{mesos_work_dir}} state=directory mode=0750 owner={{mesos_system_user}} recurse=yes

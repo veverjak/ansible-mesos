@@ -35,13 +35,14 @@
 
 # == Re-enable services as necessary
 - name: Mesos master script
-  template: src=mesos-master.j2 dest=/etc/init/mesos-master.conf
+  template: src=initd_mesos.j2 dest=/etc/init.d/mesos-master mode=0755
   when: mesos_install_mode == "master" or mesos_install_mode == "master-slave"
   notify:
     - Restart mesos-master
 
+# == Re-enable services as necessary
 - name: Mesos slave script
-  template: src=mesos-slave.j2 dest=/etc/init/mesos-slave.conf
+  template: src=initd_mesos-slave.j2 dest=/etc/init.d/mesos-slave mode=0755
   when: mesos_install_mode == "slave" or mesos_install_mode == "master-slave"
   notify:
     - Restart mesos-slave
